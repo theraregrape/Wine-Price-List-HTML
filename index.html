@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rare Grape - Wine Price List</title>
+    <style>
+        :root {
+            --primary: #58111A; /* Deep burgundy matching branding */
+            --primary-light: #7A1C28;
+            --bg: #FDFBF7;
+            --card-bg: #FFFFFF;
+            --text: #2C2C2C;
+            --border: #E5E0D8;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            border-top: 5px solid var(--primary);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .contacts {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-card {
+            font-size: 0.95rem;
+        }
+
+        .contact-card strong {
+            color: var(--primary);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+        }
+
+        .producer-section {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
+        }
+
+        .producer-title {
+            color: var(--primary);
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            font-size: 1.5rem;
+        }
+
+        .category-header {
+            background-color: var(--bg);
+            color: var(--primary-light);
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding: 8px 12px;
+            margin: 15px 0 10px 0;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        td.price {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            font-size: 1.1rem;
+            color: #777;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            th, td { padding: 8px 6px; font-size: 0.85rem; }
+            .contacts { gap: 15px; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>The Rare Grape</h1>
+        <div class="tagline">Exclusive Wines. Distributed Throughout Colorado.</div>
+        
+        <div class="contacts">
+            <div class="contact-card">
+                <strong>Megan Brown</strong> — Co-Founder<br>
+                214-455-5512 | <a href="mailto:theraregrape@gmail.com">theraregrape@gmail.com</a>
+            </div>
+            <div class="contact-card">
+                <strong>Denver Brown</strong> — Co-Founder<br>
+                214-808-6522 | <a href="mailto:dcbrown03@gmail.com">dcbrown03@gmail.com</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="controls">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search by producer, wine, vintage, or SKU..." onkeyup="filterMenu()">
+    </div>
+
+    <div id="menuContainer">
+
+        <!-- Bertrand Machard de Gramont -->
+        <div class="producer-section">
+            <h2 class="producer-title">Bertrand Machard de Gramont</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>9307120</td><td>Bourgogne Aligoté Le Chêne du Court</td><td>2020</td><td class="price">$36.52</td><td class="price">$438.27</td></tr>
+                    <tr><td>9307122</td><td>Bourgogne Aligoté Le Chêne du Court</td><td>2022</td><td class="price">$47.46</td><td class="price">$569.52</td></tr>
+                    <tr><td>9309022</td><td>Bourgogne Chardonnay Organic</td><td>2022</td><td class="price">$53.71</td><td class="price">$644.52</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>9308123</td><td>Bourgogne Les Grands Chaillots</td><td>2023</td><td class="price">$60.52</td><td class="price">$726.19</td></tr>
+                    <tr><td>9302122</td><td>Nuits-Saint-Georges Aux Allots, Organic</td><td>2022</td><td class="price">$113.15</td><td class="price">$1,357.86</td></tr>
+                    <tr><td>9306122</td><td>Nuits-Saint-Georges Les Hauts-Pruliers, Organic</td><td>2022</td><td class="price">$122.46</td><td class="price">$1,469.52</td></tr>
+                    <tr><td>9301121</td><td>Nuits-Saint-Georges Les Terrasses des Vallerots</td><td>2021</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>9301122</td><td>Nuits-Saint-Georges Les Terrasses des Vallerots</td><td>2022</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>9305121</td><td>Nuits-Saint-Georges Les Vallerots</td><td>2021</td><td class="price">$96.63</td><td class="price">$1,159.52</td></tr>
+                    <tr><td>9305122</td><td>Nuits-Saint-Georges Les Vallerots</td><td>2022</td><td class="price">$109.96</td><td class="price">$1,319.52</td></tr>
+                    <tr><td>9304121</td><td>Vosne-Romanée</td><td>2021</td><td class="price">$124.40</td><td class="price">$1,492.86</td></tr>
+                    <tr><td>9304122</td><td>Vosne-Romanée</td><td>2022</td><td class="price">$134.96</td><td class="price">$1,619.52</td></tr>
+                    <tr><td>9303123</td><td>Vosne-Romanée Les Barreaux</td><td>2023</td><td class="price">$199.40</td><td class="price">$2,392.86</td></tr>
+                    <tr><td>9310020</td><td>Vin de France, Maceration Pelliculaire</td><td>2020</td><td class="price">$60.52</td><td class="price">$726.19</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Cécile Paquet -->
+        <div class="producer-section">
+            <h2 class="producer-title">Cécile Paquet</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1215124</td><td>Mâcon-Villages, Organic</td><td>2024</td><td class="price">$38.29</td><td class="price">$459.52</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1210124</td><td>Bourgogne Pinot Noir, Organic</td><td>2024</td><td class="price">$37.04</td><td class="price">$444.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Chevalier Père et Fils -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Chevalier Père et Fils</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>902122</td><td>Corton-Charlemagne Grand Cru</td><td>2022</td><td class="price">$281.68</td><td class="price">$3,380.16</td></tr>
+                    <tr><td>901123</td><td>Ladoix Blanc</td><td>2023</td><td class="price">$71.63</td><td class="price">$859.52</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>912119</td><td>Corton Grand Cru Les Grandes Lolières</td><td>2019</td><td class="price">$139.96</td><td class="price">$1,679.52</td></tr>
+                    <tr><td>912122</td><td>Corton Grand Cru Les Grandes Lolières</td><td>2022</td><td class="price">$182.04</td><td class="price">$2,184.52</td></tr>
+                    <tr><td>903123</td><td>Ladoix Rouge</td><td>2023</td><td class="price">$63.29</td><td class="price">$759.52</td></tr>
+                    <tr><td>908124</td><td>Bourgogne Rouge</td><td>2024</td><td class="price">$41.63</td><td class="price">$499.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Coillot Père et Fils -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Coillot Père et Fils</h2>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1504123</td><td>Bourgogne Pinot Noir</td><td>2023</td><td class="price">$38.29</td><td class="price">$459.52</td></tr>
+                    <tr><td>1502122</td><td>Gevrey-Chambertin Vieilles Vignes</td><td>2022</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>1508022</td><td>Marsannay</td><td>2022</td><td class="price">$63.29</td><td class="price">$759.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Comte Senard -->
+        <div class="producer-section">
+            <h2 class="producer-title">Comte Senard</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8714123</td><td>Chassagne-Montrachet Blanc, Organic</td><td>2023</td><td class="price">$154.96</td><td class="price">$1,859.52</td></tr>
+                    <tr><td>8709123</td><td>Corton Grand Cru Blanc (2023) 750 mL x 12 Organic</td><td>2023</td><td class="price">$338.29</td><td class="price">$4,059.52</td></tr>
+                    <tr><td>8713123</td><td>Bourgogne Ana</td><td>2023</td><td class="price">$51.63</td><td class="price">$619.52</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8712118</td><td>Aloxe-Corton 1er Cru Les Valozières, Organic</td><td>2018</td><td class="price">$135.52</td><td class="price">$1,626.19</td></tr>
+                    <tr><td>8712120</td><td>Aloxe-Corton 1er Cru Les Valozières, Organic</td><td>2020</td><td class="price">$135.52</td><td class="price">$1,626.19</td></tr>
+                    <tr><td>8704122</td><td>Aloxe-Corton Jules</td><td>2022</td><td class="price">$79.96</td><td class="price">$959.52</td></tr>
+                    <tr><td>8711113</td><td>Corton Grand Cru Bressandes, Organic</td><td>2013</td><td class="price">$244.40</td><td class="price">$2,932.86</td></tr>
+                    <tr><td>8711117</td><td>Corton Grand Cru Bressandes, Organic</td><td>2017</td><td class="price">$222.74</td><td class="price">$2,672.86</td></tr>
+                    <tr><td>8711121</td><td>Corton Grand Cru Bressandes, Organic</td><td>2021</td><td class="price">$222.74</td><td class="price">$2,672.86</td></tr>
+                    <tr><td>8706121</td><td>Corton Grand Cru Clos Des Meix Monopole, Biodynamic</td><td>2021</td><td class="price">$238.29</td><td class="price">$2,859.52</td></tr>
+                    <tr><td>8706122</td><td>Corton Grand Cru Clos Des Meix Monopole, Biodynamic</td><td>2022</td><td class="price">$319.96</td><td class="price">$3,839.52</td></tr>
+                    <tr><td>8710113</td><td>Corton Clos du Roi Grand Cru</td><td>2013</td><td class="price">$254.96</td><td class="price">$3,059.52</td></tr>
+                    <tr><td>8710117</td><td>Corton Grand Cru Clos Du Roi, Organic</td><td>2017</td><td class="price">$222.74</td><td class="price">$2,672.86</td></tr>
+                    <tr><td>8710221</td><td>Corton Grand Cru Clos Du Roi, Organic</td><td>2021</td><td class="price">$222.74</td><td class="price">$2,672.86</td></tr>
+                    <tr><td>8703123</td><td>Aloxe-Corton Les Caillettes</td><td>2023</td><td class="price">$143.85</td><td class="price">$1,726.19</td></tr>
+                    <tr><td>8700123</td><td>Bourgogne Auguste Rouge</td><td>2023</td><td class="price">$51.63</td><td class="price">$619.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Georges Chicotot -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Georges Chicotot</h2>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1101123</td><td>Bourgogne Côte-d'Or Pinot Noir</td><td>2023</td><td class="price">$56.21</td><td class="price">$674.52</td></tr>
+                    <tr><td>1113120</td><td>Ladoix Rouge, Organic</td><td>2021</td><td class="price">$54.96</td><td class="price">$659.52</td></tr>
+                    <tr><td>1105120</td><td>Nuits-Saint-Georges 1er Cru Aux Torey, Organic</td><td>2020</td><td class="price">$110.52</td><td class="price">$1,326.19</td></tr>
+                    <tr><td>1113121</td><td>Nuits-Saint-Georges 1er Cru Aux Torey, Organic</td><td>2021</td><td class="price">$171.63</td><td class="price">$2,059.52</td></tr>
+                    <tr><td>1113122</td><td>Nuits-Saint-Georges 1er Cru Aux Torey, Organic</td><td>2022</td><td class="price">$171.63</td><td class="price">$2,059.52</td></tr>
+                    <tr><td>1111120</td><td>Nuits-Saint-Georges 1er Cru Les Pruliers, Organic</td><td>2020</td><td class="price">$129.96</td><td class="price">$1,559.52</td></tr>
+                    <tr><td>1105121</td><td>Nuits-Saint-Georges 1er Cru Les Pruliers, Organic</td><td>2021</td><td class="price">$171.63</td><td class="price">$2,059.52</td></tr>
+                    <tr><td>1105122</td><td>Nuits-Saint-Georges 1er Cru Les Pruliers, Organic</td><td>2022</td><td class="price">$171.63</td><td class="price">$2,059.52</td></tr>
+                    <tr><td>1107121</td><td>Nuits-Saint-Georges 1er Cru Les Saint Georges</td><td>2021</td><td class="price">$227.18</td><td class="price">$2,726.19</td></tr>
+                    <tr><td>1107122</td><td>Nuits-Saint-Georges 1er Cru Les Saint Georges</td><td>2022</td><td class="price">$227.18</td><td class="price">$2,726.19</td></tr>
+                    <tr><td>1112120</td><td>Nuits-Saint-Georges 1er Cru Les Vaucrains, Organic</td><td>2020</td><td class="price">$171.63</td><td class="price">$2,059.52</td></tr>
+                    <tr><td>1112121</td><td>Nuits-Saint-Georges 1er Cru Les Vaucrains, Organic</td><td>2021</td><td class="price">$227.18</td><td class="price">$2,726.19</td></tr>
+                    <tr><td>1112122</td><td>Nuits-Saint-Georges 1er Cru Les Vaucrains, Organic</td><td>2022</td><td class="price">$227.18</td><td class="price">$2,726.19</td></tr>
+                    <tr><td>1103121</td><td>Nuits-Saint-Georges 1er Cru Rues de Chaux, Organic</td><td>2021</td><td class="price">$138.29</td><td class="price">$1,659.52</td></tr>
+                    <tr><td>1103122</td><td>Nuits-Saint-Georges 1er Cru Rues de Chaux, Organic</td><td>2022</td><td class="price">$138.29</td><td class="price">$1,659.52</td></tr>
+                    <tr><td>1108121</td><td>Nuits-Saint-Georges Aux Allots, Organic</td><td>2021</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>1108122</td><td>Nuits-Saint-Georges Aux Allots, Organic</td><td>2022</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>1111121</td><td>Nuits-Saint-Georges Aux Saint Juliens, Organic</td><td>2021</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>1115122</td><td>Nuits-Saint-Georges Aux Saint Juliens, Organic</td><td>2022</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>1102122</td><td>Nuits-Saint-Georges Les Charmottes, Organic</td><td>2022</td><td class="price">$88.29</td><td class="price">$1,059.52</td></tr>
+                    <tr><td>1109121</td><td>Nuits-Saint-Georges Les Plantes au Baron, Organic</td><td>2021</td><td class="price">$93.85</td><td class="price">$1,126.19</td></tr>
+                    <tr><td>1109122</td><td>Nuits-Saint-Georges Les Plantes au Baron, Organic</td><td>2022</td><td class="price">$93.85</td><td class="price">$1,126.19</td></tr>
+                    <tr><td>1111122</td><td>Nuits-Saint-Georges Papillons De Nuys Clément Chicotot Organic</td><td>2022</td><td class="price">$93.85</td><td class="price">$1,126.19</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Darviot-Perrin -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Darviot-Perrin</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>2016121</td><td>Beaune Longbois</td><td>2021</td><td class="price">$104.96</td><td class="price">$1,259.52</td></tr>
+                    <tr><td>2016122</td><td>Beaune Longbois</td><td>2022</td><td class="price">$104.96</td><td class="price">$1,259.52</td></tr>
+                    <tr><td>2016123</td><td>Beaune Longbois</td><td>2023</td><td class="price">$123.15</td><td class="price">$1,477.86</td></tr>
+                    <tr><td>2015120</td><td>Bourgogne Aligoté Champs Lins, Biodynamic</td><td>2020</td><td class="price">$53.24</td><td class="price">$638.91</td></tr>
+                    <tr><td>2015122</td><td>Bourgogne Aligoté Champs Lins, Biodynamic</td><td>2022</td><td class="price">$53.24</td><td class="price">$638.91</td></tr>
+                    <tr><td>2015123</td><td>Bourgogne Aligoté Champs Lins, Biodynamic</td><td>2023</td><td class="price">$63.85</td><td class="price">$766.19</td></tr>
+                    <tr><td>2009121</td><td>Bourgogne Blanc Les Magnys</td><td>2021</td><td class="price">$63.29</td><td class="price">$759.52</td></tr>
+                    <tr><td>2009122</td><td>Bourgogne Blanc Les Magnys</td><td>2022</td><td class="price">$63.29</td><td class="price">$759.52</td></tr>
+                    <tr><td>2009123</td><td>Bourgogne Blanc Les Magnys</td><td>2023</td><td class="price">$67.46</td><td class="price">$809.52</td></tr>
+                    <tr><td>2011122</td><td>Chassagne-Montrachet La Bergerie, Biodynamic</td><td>2022</td><td class="price">$154.96</td><td class="price">$1,859.52</td></tr>
+                    <tr><td>2011123</td><td>Chassagne-Montrachet La Bergerie, Biodynamic</td><td>2023</td><td class="price">$186.63</td><td class="price">$2,239.52</td></tr>
+                    <tr><td>2013122</td><td>Meursault 1er Cru Charmes, Biodynamic</td><td>2022</td><td class="price">$265.93</td><td class="price">$3,191.19</td></tr>
+                    <tr><td>2002121</td><td>Meursault Clos de La Velle</td><td>2021</td><td class="price">$138.29</td><td class="price">$1,659.52</td></tr>
+                    <tr><td>2002122</td><td>Meursault Clos de La Velle</td><td>2022</td><td class="price">$151.77</td><td class="price">$1,821.19</td></tr>
+                    <tr><td>2002123</td><td>Meursault Clos de La Velle</td><td>2023</td><td class="price">$177.60</td><td class="price">$2,131.19</td></tr>
+                    <tr><td>2017121</td><td>Meursault Le Tesson</td><td>2021</td><td class="price">$157.74</td><td class="price">$1,892.86</td></tr>
+                    <tr><td>2010122</td><td>Meursault-Genevrières 1er Cru</td><td>2022</td><td class="price">$294.40</td><td class="price">$3,532.86</td></tr>
+                    <tr><td>2019122</td><td>Meursault (2022) 750 mL x 12 Biodynamic</td><td>2022</td><td class="price">$143.85</td><td class="price">$1,726.19</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>2012121</td><td>Volnay 1er Cru La Gigotte</td><td>2021</td><td class="price">$188.29</td><td class="price">$2,259.52</td></tr>
+                    <tr><td>2012122</td><td>Volnay 1er Cru La Gigotte</td><td>2021</td><td class="price">$169.40</td><td class="price">$2,032.86</td></tr>
+                    <tr><td>2006121</td><td>Volnay-Santenots 1er Cru</td><td>2021</td><td class="price">$177.88</td><td class="price">$2,134.52</td></tr>
+                    <tr><td>2006122</td><td>Volnay-Santenots 1er Cru</td><td>2022</td><td class="price">$192.74</td><td class="price">$2,312.86</td></tr>
+                    <tr><td>2006123</td><td>Volnay-Santenots 1er Cru</td><td>2023</td><td class="price">$203.99</td><td class="price">$2,447.86</td></tr>
+                    <tr><td>2007216</td><td>Chassagne-Montrachet 1er Cru Les Bondues Rouge cs/6</td><td>2016</td><td class="price">$154.96</td><td class="price">$1,859.52</td></tr>
+                    <tr><td>2007120</td><td>Chassagne-Montrachet 1er Cru Les Bondues Rouge, Biodynamic</td><td>2020</td><td class="price">$113.09</td><td class="price">$1,357.02</td></tr>
+                    <tr><td>2007122</td><td>Chassagne-Montrachet 1er Cru Les Bondues Rouge</td><td>2022</td><td class="price">$134.96</td><td class="price">$1,619.52</td></tr>
+                    <tr><td>2007123</td><td>Chassagne-Montrachet 1er Cru Les Bondues Rouge</td><td>2023</td><td class="price">$153.71</td><td class="price">$1,844.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Gérard Peirazeau Et Fils -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Gérard Peirazeau Et Fils</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>6620122</td><td>Morey-Saint-Denis Blanc</td><td>2022</td><td class="price">$171.63</td><td class="price">$1,029.76</td></tr>
+                    <tr><td>6620123</td><td>Morey-Saint-Denis Blanc</td><td>2023</td><td class="price">$151.63</td><td class="price">$909.76</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>6617122</td><td>Bonnes Mares Grand Cru</td><td>2022</td><td class="price">$488.29</td><td class="price">$2,929.76</td></tr>
+                    <tr><td>6617123</td><td>Bonnes Mares Grand Cru</td><td>2023</td><td class="price">$504.96</td><td class="price">$3,029.76</td></tr>
+                    <tr><td>6622123</td><td>Bourgogne Pinot Noir</td><td>2023</td><td class="price">$46.21</td><td class="price">$277.26</td></tr>
+                    <tr><td>6611122</td><td>Chambertin-Clos de Bèze Grand Cru</td><td>2022</td><td class="price">$579.40</td><td class="price">$3,476.43</td></tr>
+                    <tr><td>6611123</td><td>Chambertin-Clos de Bèze Grand Cru</td><td>2023</td><td class="price">$603.99</td><td class="price">$3,623.93</td></tr>
+                    <tr><td>6618122</td><td>Chambolle-Musigny 1er Cru Les Amoureuses</td><td>2022</td><td class="price">$488.29</td><td class="price">$2,929.76</td></tr>
+                    <tr><td>6618123</td><td>Chambolle-Musigny 1er Cru Les Amoureuses</td><td>2023</td><td class="price">$504.96</td><td class="price">$3,029.76</td></tr>
+                    <tr><td>6619122</td><td>Chambolle-Musigny 1er Cru Les Hauts-Doix</td><td>2022</td><td class="price">$238.29</td><td class="price">$1,429.76</td></tr>
+                    <tr><td>6619123</td><td>Chambolle-Musigny 1er Cru Les Hauts-Doix</td><td>2023</td><td class="price">$240.93</td><td class="price">$1,445.60</td></tr>
+                    <tr><td>6612122</td><td>Charmes-Chambertin Grand Cru</td><td>2022</td><td class="price">$421.63</td><td class="price">$2,529.76</td></tr>
+                    <tr><td>6612123</td><td>Charmes-Chambertin Grand Cru</td><td>2023</td><td class="price">$438.99</td><td class="price">$2,633.93</td></tr>
+                    <tr><td>6614122</td><td>Clos Saint-Denis Grand Cru</td><td>2022</td><td class="price">$357.18</td><td class="price">$2,143.10</td></tr>
+                    <tr><td>6614123</td><td>Clos Saint-Denis Grand Cru</td><td>2023</td><td class="price">$373.02</td><td class="price">$2,238.10</td></tr>
+                    <tr><td>6613122</td><td>Clos de la Roche Grand Cru</td><td>2022</td><td class="price">$357.18</td><td class="price">$2,143.10</td></tr>
+                    <tr><td>6613123</td><td>Clos de la Roche Grand Cru</td><td>2023</td><td class="price">$373.02</td><td class="price">$2,238.10</td></tr>
+                    <tr><td>6616122</td><td>Morey-Saint-Denis 1er Cru Les Chaffots</td><td>2022</td><td class="price">$154.96</td><td class="price">$929.76</td></tr>
+                    <tr><td>6616123</td><td>Morey-Saint-Denis 1er Cru Les Chaffots</td><td>2023</td><td class="price">$158.43</td><td class="price">$950.60</td></tr>
+                    <tr><td>6615122</td><td>Morey-Saint-Denis 1er Cru Les Genavriéres</td><td>2022</td><td class="price">$154.96</td><td class="price">$929.76</td></tr>
+                    <tr><td>6615123</td><td>Morey-Saint-Denis 1er Cru Les Genavriéres</td><td>2023</td><td class="price">$158.43</td><td class="price">$950.60</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Hubert Bouzereau-Gruère & Filles -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Hubert Bouzereau-Gruère & Filles</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1308121</td><td>Bourgogne Blanc</td><td>2021</td><td class="price">$51.63</td><td class="price">$619.52</td></tr>
+                    <tr><td>1308122</td><td>Bourgogne Blanc</td><td>2022</td><td class="price">$51.63</td><td class="price">$619.52</td></tr>
+                    <tr><td>1304124</td><td>Puligny-Montrachet</td><td>2024</td><td class="price">$138.29</td><td class="price">$1,659.52</td></tr>
+                    <tr><td>1306119</td><td>Meursault 1er Cru Charmes</td><td>2019</td><td class="price">$113.29</td><td class="price">$1,359.52</td></tr>
+                    <tr><td>1306121</td><td>Meursault 1er Cru Charmes</td><td>2021</td><td class="price">$144.96</td><td class="price">$1,739.52</td></tr>
+                    <tr><td>1306122</td><td>Meursault 1er Cru Charmes</td><td>2022</td><td class="price">$154.96</td><td class="price">$1,859.52</td></tr>
+                    <tr><td>1303123</td><td>Meursault 1er Cru Genevrieres</td><td>2023</td><td class="price">$199.40</td><td class="price">$2,392.86</td></tr>
+                    <tr><td>1318121</td><td>Meursault Les Grands Charrons</td><td>2021</td><td class="price">$107.74</td><td class="price">$1,292.86</td></tr>
+                    <tr><td>1313123</td><td>Meursault Limozin</td><td>2023</td><td class="price">$135.52</td><td class="price">$1,626.19</td></tr>
+                    <tr><td>1302122</td><td>Meursault Tillets</td><td>2022</td><td class="price">$116.07</td><td class="price">$1,392.86</td></tr>
+                    <tr><td>1307122</td><td>Chassagne-Montrachet 1er Cru Les Chaumees</td><td>2022</td><td class="price">$143.85</td><td class="price">$1,726.19</td></tr>
+                    <tr><td>1305122</td><td>Chassagne-Montrachet Les Blanchots Dessous</td><td>2022</td><td class="price">$121.63</td><td class="price">$1,459.52</td></tr>
+                    <tr><td>1312124</td><td>Chassagne-Montrachet Blanc</td><td>2024</td><td class="price">$129.96</td><td class="price">$1,559.52</td></tr>
+                    <tr><td>1301123</td><td>Saint-Aubin 1er Cru Le Charmois</td><td>2023</td><td class="price">$132.74</td><td class="price">$1,592.86</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1314123</td><td>Bourgogne Rouge</td><td>2023</td><td class="price">$51.63</td><td class="price">$619.52</td></tr>
+                    <tr><td>1316120</td><td>Corton Bressandes Grand Cru</td><td>2020</td><td class="price">$158.29</td><td class="price">$1,899.52</td></tr>
+                    <tr><td>1316121</td><td>Corton Bressandes Grand Cru</td><td>2021</td><td class="price">$159.96</td><td class="price">$1,919.52</td></tr>
+                    <tr><td>1316122</td><td>Corton Bressandes Grand Cru</td><td>2022</td><td class="price">$171.63</td><td class="price">$2,059.52</td></tr>
+                    <tr><td>1310121</td><td>Meursault Rouge</td><td>2021</td><td class="price">$116.07</td><td class="price">$1,392.86</td></tr>
+                    <tr><td>1311121</td><td>Chassagne-Montrachet Rouge</td><td>2021</td><td class="price">$77.18</td><td class="price">$926.19</td></tr>
+                    <tr><td>1315121</td><td>Santenay</td><td>2021</td><td class="price">$71.63</td><td class="price">$859.52</td></tr>
+                    <tr><td>1315122</td><td>Santenay</td><td>2022</td><td class="price">$74.96</td><td class="price">$899.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Launay-Horiot -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Launay-Horiot</h2>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>2025121</td><td>Chambertin Grand Cru</td><td>2021</td><td class="price">$643.85</td><td class="price">$7,726.19</td></tr>
+                    <tr><td>2025123</td><td>Chambertin Grand Cru</td><td>2023</td><td class="price">$1,338.29</td><td class="price">$16,059.52</td></tr>
+                    <tr><td>2024121</td><td>Latricières-Chambertin Grand Cru</td><td>2021</td><td class="price">$463.29</td><td class="price">$5,559.52</td></tr>
+                    <tr><td>2024122</td><td>Latricières-Chambertin Grand Cru</td><td>2022</td><td class="price">$727.18</td><td class="price">$8,726.19</td></tr>
+                    <tr><td>2022121</td><td>Pommard 1er Cru Clos Blanc</td><td>2021</td><td class="price">$141.07</td><td class="price">$1,692.86</td></tr>
+                    <tr><td>2022122</td><td>Pommard 1er Cru Clos Blanc</td><td>2022</td><td class="price">$167.18</td><td class="price">$2,006.19</td></tr>
+                    <tr><td>2021121</td><td>Pommard 1er Cru Les Chaponnières</td><td>2021</td><td class="price">$135.52</td><td class="price">$1,626.19</td></tr>
+                    <tr><td>2021122</td><td>Pommard 1er Cru Les Chaponnières</td><td>2022</td><td class="price">$167.18</td><td class="price">$2,006.19</td></tr>
+                    <tr><td>2023121</td><td>Pommard 1er Cru Les Rugiens Bas</td><td>2021</td><td class="price">$238.29</td><td class="price">$2,859.52</td></tr>
+                    <tr><td>2023122</td><td>Pommard 1er Cru Les Rugiens Bas</td><td>2022</td><td class="price">$282.74</td><td class="price">$3,392.86</td></tr>
+                    <tr><td>2023123</td><td>Pommard 1er Cru Les Rugiens Bas</td><td>2023</td><td class="price">$354.96</td><td class="price">$4,259.52</td></tr>
+                    <tr><td>2020121</td><td>Pommard Les Perrières</td><td>2021</td><td class="price">$96.63</td><td class="price">$1,159.52</td></tr>
+                    <tr><td>2020122</td><td>Pommard Les Perrières</td><td>2022</td><td class="price">$104.96</td><td class="price">$1,259.52</td></tr>
+                    <tr><td>2020123</td><td>Pommard Les Perrières</td><td>2023</td><td class="price">$129.96</td><td class="price">$1,559.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Marsoif -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Marsoif</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8600123</td><td>Bourgogne Tonnerre Chardonnay, Organic</td><td>2023</td><td class="price">$29.96</td><td class="price">$359.52</td></tr>
+                    <tr><td>8601122</td><td>Bourgogne Tonnerre Cuvée De Marguerite Vieilles Vignes, Organic</td><td>2022</td><td class="price">$29.96</td><td class="price">$359.52</td></tr>
+                    <tr><td>8601123</td><td>Bourgogne Tonnerre Cuvée De Marguerite Vieilles Vignes, Organic</td><td>2023</td><td class="price">$31.63</td><td class="price">$379.52</td></tr>
+                    <tr><td>8602124</td><td>Petit Chablis Sur La Goulerotte Organic</td><td>2024</td><td class="price">$34.96</td><td class="price">$419.52</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">BRUT</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8607020</td><td>Crémant de Bourgogne Brut Rosé</td><td>2020</td><td class="price">$31.63</td><td class="price">$379.52</td></tr>
+                    <tr><td>8606018</td><td>Crémant De Bourgogne Brut Blanc de Noirs</td><td>2018</td><td class="price">$33.57</td><td class="price">$402.86</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8603123</td><td>Bourgogne Epineuil Croix Des Templiers, Organic</td><td>2023</td><td class="price">$31.63</td><td class="price">$379.52</td></tr>
+                    <tr><td>8604122</td><td>Bourgogne Epineuil Fût De Chêne, Organic</td><td>2022</td><td class="price">$33.29</td><td class="price">$399.52</td></tr>
+                    <tr><td>8605123</td><td>Bourgogne Pinot Noir Maison Rouge Tonnerre, Organic</td><td>2023</td><td class="price">$29.96</td><td class="price">$359.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Méo-Camuzet -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Méo-Camuzet</h2>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>0706119</td><td>Nuits-Saint-Georges 1er Cru Les Vignerondes Cuvée Bernard Delesclache Hospices de Nuits</td><td>2020</td><td class="price">$264.96</td><td class="price">$3,179.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Domaine Thierry Hamelin -->
+        <div class="producer-section">
+            <h2 class="producer-title">Domaine Thierry Hamelin</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1601322</td><td>Chablis · 375 mL x 24</td><td>2022</td><td class="price">$26.63</td><td class="price">$639.05</td></tr>
+                    <tr><td>1601323</td><td>Chablis · 375 mL x 24</td><td>2023</td><td class="price">$26.63</td><td class="price">$639.05</td></tr>
+                    <tr><td>1601123</td><td>Chablis</td><td>2023</td><td class="price">$38.29</td><td class="price">$459.52</td></tr>
+                    <tr><td>1604123</td><td>Chablis 1er Cru Beauroy</td><td>2023</td><td class="price">$49.96</td><td class="price">$599.52</td></tr>
+                    <tr><td>1602122</td><td>Petit Chablis</td><td>2022</td><td class="price">$31.63</td><td class="price">$379.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Jane Eyre -->
+        <div class="producer-section">
+            <h2 class="producer-title">Jane Eyre</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>9908121</td><td>Santenay Village Blanc x6</td><td>2021</td><td class="price">$88.29</td><td class="price">$529.76</td></tr>
+                    <tr><td>9908122</td><td>Santenay Village Blanc x6</td><td>2022</td><td class="price">$104.96</td><td class="price">$629.76</td></tr>
+                    <tr><td>9912122</td><td>Bourgogne Blanc x6</td><td>2022</td><td class="price">$91.63</td><td class="price">$549.76</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>9909122</td><td>Beaune 1er Cru Les Avaux x6</td><td>2022</td><td class="price">$143.85</td><td class="price">$863.10</td></tr>
+                    <tr><td>9915122</td><td>Corton-Bressandes Grand Cru x6</td><td>2022</td><td class="price">$377.18</td><td class="price">$2,263.10</td></tr>
+                    <tr><td>9904122</td><td>Gevrey-Chambertin x6</td><td>2022</td><td class="price">$143.85</td><td class="price">$863.10</td></tr>
+                    <tr><td>9911122</td><td>Gevrey-Chambertin 1er Cru 'Les Corbeaux' x6</td><td>2022</td><td class="price">$301.63</td><td class="price">$1,809.76</td></tr>
+                    <tr><td>9906120</td><td>Nuits-Saint-Georges 1er Cru Hospices De Nuits Les Didiers x6</td><td>2020</td><td class="price">$389.96</td><td class="price">$2,339.76</td></tr>
+                    <tr><td>9905120</td><td>Nuits-Saint-Georges 1er Cru Hospices De Nuits Les Vignerondes x6</td><td>2020</td><td class="price">$264.96</td><td class="price">$1,589.76</td></tr>
+                    <tr><td>9914122</td><td>Cote de Nuits Villages</td><td>2022</td><td class="price">$98.29</td><td class="price">$589.76</td></tr>
+                    <tr><td>9913122</td><td>Auxey Duresses Village Les Crais x6</td><td>2022</td><td class="price">$88.29</td><td class="price">$529.76</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Les Champs de l'Abbaye -->
+        <div class="producer-section">
+            <h2 class="producer-title">Les Champs de l'Abbaye</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8804120</td><td>Monthélie Blanc Les Sous Roches, Organic</td><td>2020</td><td class="price">$60.52</td><td class="price">$726.19</td></tr>
+                    <tr><td>8804121</td><td>Monthélie Blanc Les Sous Roches</td><td>2021</td><td class="price">$69.96</td><td class="price">$839.52</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">BRUT</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8812121</td><td>Crémant de Bourgogne Brut Nature 6. Organic</td><td>2021</td><td class="price">$47.46</td><td class="price">$284.76</td></tr>
+                </tbody>
+            </table>
+            <div class="category-header">REDS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>8815122</td><td>Bourgogne Côte Chalonnaise Les Gardes Rémi, Organic</td><td>2022</td><td class="price">$46.07</td><td class="price">$552.86</td></tr>
+                    <tr><td>8813122</td><td>Mercurey Les Marcoeurs, Organic</td><td>2022</td><td class="price">$65.38</td><td class="price">$784.52</td></tr>
+                    <tr><td>8802120</td><td>Monthélie Rouge Les Sous Roches, Organic</td><td>2020</td><td class="price">$54.96</td><td class="price">$659.52</td></tr>
+                    <tr><td>8802121</td><td>Monthélie Rouge Les Sous Roches</td><td>2021</td><td class="price">$68.29</td><td class="price">$819.52</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Roy-Prevostat & Fils -->
+        <div class="producer-section">
+            <h2 class="producer-title">Roy-Prevostat & Fils</h2>
+            <div class="category-header">BLANCS</div>
+            <table>
+                <thead>
+                    <tr><th>SKU</th><th>Wine</th><th>Vintage</th><th>Bottle Price</th><th>Case Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1701122</td><td>Chablis Vieilles Vignes</td><td>2022</td><td class="price">$60.52</td><td class="price">$726.19</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="noResults" class="no-results">
+        No wines or producers found matching your search.
+    </div>
+</div>
+
+<script>
+    function filterMenu() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const producerSections = document.querySelectorAll('.producer-section');
+        let totalVisibleProducers = 0;
+
+        producerSections.forEach(section => {
+            const rows = section.querySelectorAll('tbody tr');
+            const producerName = section.querySelector('.producer-title').textContent.toLowerCase();
+            let visibleRowsInSection = 0;
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(query) || producerName.includes(query)) {
+                    row.style.display = '';
+                    visibleRowsInSection++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            if (visibleRowsInSection > 0) {
+                section.style.display = '';
+                totalVisibleProducers++;
+            } else {
+                section.style.display = 'none';
+            }
+        });
+
+        const noResults = document.getElementById('noResults');
+        if (totalVisibleProducers === 0) {
+            noResults.style.display = 'block';
+        } else {
+            noResults.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
