@@ -126,6 +126,32 @@
             color: var(--ink);
         }
 
+        .pdf-download {
+            display: table;
+            margin: 24px auto 0;
+            padding: 12px 22px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            background: var(--primary);
+            color: #fff;
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .pdf-download:hover,
+        .pdf-download:focus-visible {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .pdf-download:focus-visible {
+            outline: 3px solid #b78a94;
+            outline-offset: 3px;
+        }
+
         .producer-list {
             max-width: 560px;
             margin: 30px auto 0;
@@ -201,6 +227,10 @@
         </div>
 
         <div class="tagline">Exclusive Wines. Distributed Throughout Colorado.</div>
+
+        <a class="pdf-download" href="wine-price-list.pdf" download>
+            Download Wine Price List (PDF)
+        </a>
 
         <div class="producer-list" aria-label="Producer list">
             <span class="producer">Bertrand Machard De Gramont</span>
