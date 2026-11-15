@@ -5,108 +5,531 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Rare Grape - Wine Price List</title>
     <style>
+        :root {
+            --primary: #58111A;
+            --primary-light: #7A1C28;
+            --bg: #FDFBF7;
+            --card-bg: #FFFFFF;
+            --text: #2C2C2C;
+            --border: #E5E0D8;
+        }
+
         body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 20px;
-            background: #fdfbf7;
-            color: #2c2c2c;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            line-height: 1.5;
         }
-        .loading-message {
-            max-width: 700px;
-            margin: 48px auto;
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
             text-align: center;
-            color: #58111a;
+            padding: 30px 20px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            border-top: 5px solid var(--primary);
         }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .contacts {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-card {
+            font-size: 0.95rem;
+        }
+
+        .contact-card strong {
+            color: var(--primary);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+        }
+
+        .producer-section {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
+        }
+
+        .producer-title {
+            color: var(--primary);
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            font-size: 1.5rem;
+        }
+
+        .category-header {
+            background-color: var(--bg);
+            color: var(--primary-light);
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding: 8px 12px;
+            margin: 15px 0 10px 0;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        td.price {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            font-size: 1.1rem;
+            color: #777;
+        }
+
         .pdf-download {
             display: inline-block;
-            margin-top: 16px;
+            margin-top: 18px;
             padding: 10px 18px;
-            border-radius: 6px;
-            background: #58111a;
+            background: var(--primary);
             color: #fff;
-            font-weight: 600;
+            border-radius: 8px;
             text-decoration: none;
+            font-weight: 600;
         }
+
         .pdf-download:hover,
         .pdf-download:focus-visible {
-            background: #7a1c28;
+            background: var(--primary-light);
         }
-        .pdf-download:focus-visible {
-            outline: 3px solid #cbaab0;
-            outline-offset: 3px;
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            th, td { padding: 8px 6px; font-size: 0.85rem; }
+            .contacts { gap: 15px; flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <main class="loading-message" id="pageStatus" role="status">
-        Loading the searchable wine pricing list…
-    </main>
+    <div class="container">
+        <header>
+            <h1>The Rare Grape</h1>
+            <div class="tagline">Exclusive Wines. Distributed Throughout Colorado.</div>
+
+            <div class="contacts">
+                <div class="contact-card">
+                    <strong>Megan Brown</strong> — Co-Founder<br>
+                    214-455-5512 | <a href="mailto:theraregrape@gmail.com">theraregrape@gmail.com</a>
+                </div>
+                <div class="contact-card">
+                    <strong>Denver Brown</strong> — Co-Founder<br>
+                    214-808-6522 | <a href="mailto:dcbrown03@gmail.com">dcbrown03@gmail.com</a>
+                </div>
+            </div>
+
+            <a class="pdf-download" href="wine-price-list.pdf" target="_blank" rel="noopener noreferrer">Download Wine Price List (PDF)</a>
+        </header>
+
+        <div class="controls">
+            <input type="text" id="searchInput" class="search-box" placeholder="Search by producer, wine, vintage, or SKU..." aria-label="Search wine list">
+        </div>
+
+        <div id="menuContainer"></div>
+
+        <div id="noResults" class="no-results">
+            No wines or producers found matching your search.
+        </div>
+    </div>
 
     <script>
-        (async function loadWinePriceList() {
-            const status = document.getElementById('pageStatus');
-            const sourceUrl = 'https://raw.githubusercontent.com/theraregrape/Wine-Price-List-HTML/a0131e4057fe8e70eea9b5e798e7d6ee1598382b/index.html';
+        const csvText = `Producer,Type,SKU,Wine,Farming,Vintage,Bottles per Case,Bottle Price,Case Price
+Bertrand Machard de Gramont,Blancs,9307120,Bourgogne Aligoté Le Chêne du Court,,2020,12,36.52,438.27
+Bertrand Machard de Gramont,Blancs,9307122,Bourgogne Aligoté Le Chêne du Court,,2022,12,47.46,569.52
+Bertrand Machard de Gramont,Blancs,9309022,Bourgogne Chardonnay,Organic,2022,12,53.71,644.52
+Bertrand Machard de Gramont,Reds,9308123,Bourgogne Les Grands Chaillots,,2023,12,60.52,726.19
+Bertrand Machard de Gramont,Reds,9302122,Nuits-Saint-Georges Aux Allots,Organic,2022,12,113.15,1357.86
+Bertrand Machard de Gramont,Reds,9306122,Nuits-Saint-Georges Les Hauts-Pruliers,Organic,2022,12,122.46,1469.52
+Bertrand Machard de Gramont,Reds,9301121,Nuits-Saint-Georges Les Terrasses des Vallerots,,2021,12,88.29,1059.52
+Bertrand Machard de Gramont,Reds,9301122,Nuits-Saint-Georges Les Terrasses des Vallerots,,2022,12,88.29,1059.52
+Bertrand Machard de Gramont,Reds,9305121,Nuits-Saint-Georges Les Vallerots,,2021,12,96.63,1159.52
+Bertrand Machard de Gramont,Reds,9305122,Nuits-Saint-Georges Les Vallerots,,2022,12,109.96,1319.52
+Bertrand Machard de Gramont,Reds,9304121,Vosne-Romanée,,2021,12,124.4,1492.86
+Bertrand Machard de Gramont,Reds,9304122,Vosne-Romanée,,2022,12,134.96,1619.52
+Bertrand Machard de Gramont,Reds,9303123,Vosne-Romanée Les Barreaux,,2023,12,199.4,2392.86
+Bertrand Machard de Gramont,Reds,9310020,"Vin de France, Maceration Pelliculaire",,2020,12,60.52,726.19
+Cécile Paquet,Blancs,1215124,Mâcon-Villages,Organic,2024,12,38.29,459.52
+Cécile Paquet,Reds,1210124,Bourgogne Pinot Noir,Organic,2024,12,37.04,444.52
+Domaine Benoit Chevallier,Reds,3801121,Bourgogne En Lutenière,,2021,6,63.29,379.76
+Domaine Benoit Chevallier,Reds,3801122,Bourgogne En Luteniere,,2022,12,68.29,819.52
+Domaine Benoit Chevallier,Reds,3806121,Coteaux Bourguignons,,2021,6,46.63,279.76
+Domaine Benoit Chevallier,Reds,3806122,Coteaux Bourguignons,,2022,12,51.63,619.52
+Domaine Benoit Chevallier,Reds,3803121,Nuits-Saint-Georges 1er Cru Aux Boudots,,2021,6,218.29,1309.76
+Domaine Benoit Chevallier,Reds,3803122,Nuits-Saint-Georges 1er Cru Aux Boudots,,2022,6,246.63,1479.76
+Domaine Benoit Chevallier,Reds,3807121,Nuits-Saint-Georges 1er Cru Aux Damodes,,2021,6,227.18,1363.1
+Domaine Benoit Chevallier,Reds,3807122,Nuits-Saint-Georges 1er Cru Aux Damodes,,2022,6,246.63,1479.76
+Domaine Benoit Chevallier,Reds,3805122,Vosne-Romanée,,2022,6,194.96,1169.76
+Domaine Benoit Chevallier,Reds,3804121,Vosne-Romanée 1er Cru Les Beaux Monts,,2021,6,316.07,1896.43
+Domaine Benoit Chevallier,Reds,3804122,Vosne-Romanée 1er Cru Les Beaux Monts,,2022,6,363.29,2179.76
+Domaine Chevalier Père et Fils,Blancs,901123,Ladoix Blanc,,2023,12,71.63,859.52
+Domaine Chevalier Père et Fils,Reds,912122,Corton Grand Cru Les Grandes Lolières,,2022,12,182.04,2184.52
+Domaine Chevalier Père et Fils,Reds,908124,Bourgogne Rouge,,2024,12,41.63,499.52
+Domaine Coillot Père et Fils,Reds,1504122,Bourgogne Pinot Noir,,2022,12,36.63,439.52
+Domaine Coillot Père et Fils,Reds,1504123,Bourgogne Pinot Noir,,2023,12,38.29,459.52
+Domaine Coillot Père et Fils,Reds,1502122,Gevrey-Chambertin Vieilles Vignes,,2022,12,88.29,1059.52
+Domaine Coillot Père et Fils,Reds,1508022,Marsannay,,2022,12,63.29,759.52
+Domaine Coillot Père et Fils,Reds,1507023,Fixin,,2023,12,79.96,959.52
+Domaine Coillot Père et Fils,Reds,1503122,Marsannay 'Charmes Aux Pretres',,2022,12,63.29,759.52
+Comte Senard,Blancs,8714123,Chassagne-Montrachet Blanc,Organic,2023,12,154.96,1859.52
+Comte Senard,Reds,8712118,Aloxe-Corton 1er Cru Les Valozières,Organic,2018,12,135.52,1626.19
+Comte Senard,Reds,8712120,Aloxe-Corton 1er Cru Les Valozières,Organic,2020,12,135.52,1626.19
+Comte Senard,Reds,8704122,Aloxe-Corton Jules,,2022,12,79.96,959.52
+Comte Senard,Reds,8711113,Corton Grand Cru Bressandes,Organic,2013,12,244.4,2932.86
+Comte Senard,Reds,8711117,Corton Grand Cru Bressandes,Organic,2017,12,222.74,2672.86
+Comte Senard,Reds,8711121,Corton Grand Cru Bressandes,Organic,2021,12,222.74,2672.86
+Comte Senard,Reds,8706121,Corton Grand Cru Clos Des Meix Monopole,Biodynamic,2021,12,238.29,2859.52
+Comte Senard,Reds,8706122,Corton Grand Cru Clos Des Meix Monopole,Biodynamic,2022,12,319.96,3839.52
+Comte Senard,Reds,8710113,Corton Clos du Roi Grand Cru,,2013,12,254.96,3059.52
+Comte Senard,Reds,8710117,Corton Grand Cru Clos Du Roi,Organic,2017,12,222.74,2672.86
+Comte Senard,Reds,8710221,Corton Grand Cru Clos Du Roi,Organic,2021,12,222.74,2672.86
+Comte Senard,Reds,8700123,Bourgogne Auguste Rouge,,2023,12,51.63,619.52
+Domaine Georges Chicotot,Reds,1101123,Bourgogne Côte-d'Or Pinot Noir,,2023,12,56.21,674.52
+Domaine Georges Chicotot,Reds,1113120,Ladoix Rouge,Organic,2021,12,54.96,659.52
+Domaine Georges Chicotot,Reds,1114122,Ladoix Rouge,,2022,12,54.96,659.52
+Domaine Georges Chicotot,Reds,1113121,Nuits-Saint-Georges 1er Cru Aux Torey,Organic,2021,12,171.63,2059.52
+Domaine Georges Chicotot,Reds,1113122,Nuits-Saint-Georges 1er Cru Aux Torey,Organic,2022,12,171.63,2059.52
+Domaine Georges Chicotot,Reds,1111120,Nuits-Saint-Georges 1er Cru Les Pruliers,Organic,2020,12,129.96,1559.52
+Domaine Georges Chicotot,Reds,1105121,Nuits-Saint-Georges 1er Cru Les Pruliers,Organic,2021,12,171.63,2059.52
+Domaine Georges Chicotot,Reds,1105122,Nuits-Saint-Georges 1er Cru Les Pruliers,Organic,2022,12,171.63,2059.52
+Domaine Georges Chicotot,Reds,1107121,Nuits-Saint-Georges 1er Cru Les Saint Georges,,2021,12,227.18,2726.19
+Domaine Georges Chicotot,Reds,1107122,Nuits-Saint-Georges 1er Cru Les Saint Georges,,2022,12,227.18,2726.19
+Domaine Georges Chicotot,Reds,1112120,Nuits-Saint-Georges 1er Cru Les Vaucrains,Organic,2020,12,171.63,2059.52
+Domaine Georges Chicotot,Reds,1112121,Nuits-Saint-Georges 1er Cru Les Vaucrains,Organic,2021,12,227.18,2726.19
+Domaine Georges Chicotot,Reds,1103121,Nuits-Saint-Georges 1er Cru Rues de Chaux,Organic,2021,12,138.29,1659.52
+Domaine Georges Chicotot,Reds,1103122,Nuits-Saint-Georges 1er Cru Rues de Chaux,Organic,2022,12,138.29,1659.52
+Domaine Georges Chicotot,Reds,1108121,Nuits-Saint-Georges Aux Allots,Organic,2021,12,88.29,1059.52
+Domaine Georges Chicotot,Reds,1108122,Nuits-Saint-Georges Aux Allots,Organic,2022,12,88.29,1059.52
+Domaine Georges Chicotot,Reds,1111121,Nuits-Saint-Georges Aux Saint Juliens,Organic,2021,12,88.29,1059.52
+Domaine Georges Chicotot,Reds,1115122,Nuits-Saint-Georges Aux Saint Juliens,Organic,2022,12,88.29,1059.52
+Domaine Georges Chicotot,Reds,1102122,Nuits-Saint-Georges Les Charmottes,Organic,2022,12,88.29,1059.52
+Domaine Georges Chicotot,Reds,1109121,Nuits-Saint-Georges Les Plantes au Baron,Organic,2021,12,93.85,1126.19
+Domaine Georges Chicotot,Reds,1109122,Nuits-Saint-Georges Les Plantes au Baron,Organic,2022,12,93.85,1126.19
+Domaine Georges Chicotot,Reds,1111122,Nuits-Saint-Georges Papillons De Nuys Clément Chicotot,Organic,2022,12,93.85,1126.19
+Domaine Darviot-Perrin,Blancs,2016121,Beaune Longbois,,2021,12,104.96,1259.52
+Domaine Darviot-Perrin,Blancs,2016123,Beaune Longbois,,2023,12,123.15,1477.86
+Domaine Darviot-Perrin,Blancs,2015120,Bourgogne Aligoté Champs Lins,Biodynamic,2020,12,53.24,638.91
+Domaine Darviot-Perrin,Blancs,2015122,Bourgogne Aligoté Champs Lins,Biodynamic,2022,12,53.24,638.91
+Domaine Darviot-Perrin,Blancs,2015123,Bourgogne Aligoté Champs Lins,Biodynamic,2023,12,63.85,766.19
+Domaine Darviot-Perrin,Blancs,2009121,Bourgogne Blanc Les Magnys,,2021,12,63.29,759.52
+Domaine Darviot-Perrin,Blancs,2009123,Bourgogne Blanc Les Magnys,,2023,12,67.46,809.52
+Domaine Darviot-Perrin,Blancs,2011122,Chassagne-Montrachet La Bergerie,Biodynamic,2022,12,154.96,1859.52
+Domaine Darviot-Perrin,Blancs,2011123,Chassagne-Montrachet La Bergerie,Biodynamic,2023,12,186.63,2239.52
+Domaine Darviot-Perrin,Blancs,2013122,Meursault 1er Cru Charmes,Biodynamic,2022,12,265.93,3191.19
+Domaine Darviot-Perrin,Blancs,2002122,Meursault Clos de La Velle,,2022,12,151.77,1821.19
+Domaine Darviot-Perrin,Blancs,2002123,Meursault Clos de La Velle,,2023,12,177.6,2131.19
+Domaine Darviot-Perrin,Blancs,2017121,Meursault Le Tesson,,2021,12,157.74,1892.86
+Domaine Darviot-Perrin,Blancs,2010122,Meursault-Genevrières 1er Cru,,2022,12,294.4,3532.86
+Domaine Darviot-Perrin,Blancs,2019122,Meursault,Biodynamic,2022,12,143.85,1726.19
+Domaine Darviot-Perrin,Reds,2012121,Volnay 1er Cru La Gigotte,,2021,12,188.29,2259.52
+Domaine Darviot-Perrin,Reds,2012122,Volnay 1er Cru La Gigotte,,2022,12,169.4,2032.86
+Domaine Darviot-Perrin,Reds,2006121,Volnay-Santenots 1er Cru,,2021,12,177.88,2134.52
+Domaine Darviot-Perrin,Reds,2006122,Volnay-Santenots 1er Cru,,2022,12,192.74,2312.86
+Domaine Darviot-Perrin,Reds,2006123,Volnay-Santenots 1er Cru,,2023,12,203.99,2447.86
+Domaine Darviot-Perrin,Reds,2007117,Chassagne-Montrachet 1er Cru Les Bondues Rouge,,2017,12,113.09,1357.02
+Domaine Darviot-Perrin,Reds,2007123,Chassagne-Montrachet 1er Cru Les Bondues Rouge,,2023,12,153.71,1844.52
+Domaine Darviot-Perrin,Reds,2000123,Bourgogne Rouge 'Les Magny',,2023,12,67.46,809.52
+Domaine Eypert,Blancs,FR0800123,Bourgogne-Vézelay Blanc,,2023,12,36.63,439.52
+Domaine Eypert,Reds,FR0801123,Bourgogne Garde Du Tiers,,2023,12,36.63,439.52
+Domaine Gérard Peirazeau Et Fils,Blancs,6620123,Morey-Saint-Denis Blanc,,2023,6,151.63,909.76
+Domaine Gérard Peirazeau Et Fils,Reds,6617122,Bonnes Mares Grand Cru,,2022,12,488.29,5859.52
+Domaine Gérard Peirazeau Et Fils,Reds,6617123,Bonnes Mares Grand Cru,,2023,12,504.96,6059.52
+Domaine Gérard Peirazeau Et Fils,Reds,6622123,Bourgogne Pinot Noir,,2023,12,46.21,554.52
+Domaine Gérard Peirazeau Et Fils,Reds,6611122,Chambertin-Clos de Bèze Grand,,2022,12,579.4,6952.86
+Domaine Gérard Peirazeau Et Fils,Reds,6611123,Chambertin-Clos de Bèze Grand,,2023,12,603.99,7247.86
+Domaine Gérard Peirazeau Et Fils,Reds,6618122,Chambolle-Musigny 1er Cru Les Amoureuses,,2022,12,488.29,5859.52
+Domaine Gérard Peirazeau Et Fils,Reds,6618123,Chambolle-Musigny 1er Cru Les Amoureuses,,2023,12,504.96,6059.52
+Domaine Gérard Peirazeau Et Fils,Reds,6619122,Chambolle-Musigny 1er Cru Les Hauts-Doix,,2022,12,238.29,2859.52
+Domaine Gérard Peirazeau Et Fils,Reds,6619123,Chambolle-Musigny 1er Cru Les Hauts-Doix,,2023,12,240.93,2891.19
+Domaine Gérard Peirazeau Et Fils,Reds,6612122,Charmes-Chambertin Grand Cru,,2022,12,421.63,5059.52
+Domaine Gérard Peirazeau Et Fils,Reds,6612123,Charmes-Chambertin Grand Cru,,2023,12,438.99,5267.86
+Domaine Gérard Peirazeau Et Fils,Reds,6614122,Clos Saint-Denis Grand Cru,,2022,12,357.18,4286.19
+Domaine Gérard Peirazeau Et Fils,Reds,6614123,Clos Saint-Denis Grand Cru,,2023,12,373.02,4476.19
+Domaine Gérard Peirazeau Et Fils,Reds,6613122,Clos de la Roche Grand Cru,,2022,12,357.18,4286.19
+Domaine Gérard Peirazeau Et Fils,Reds,6613123,Clos de la Roche Grand Cru,,2023,12,373.02,4476.19
+Domaine Gérard Peirazeau Et Fils,Reds,6616122,Morey-Saint-Denis 1er Cru Les Chaffots,,2022,12,154.96,1859.52
+Domaine Gérard Peirazeau Et Fils,Reds,6616123,Morey-Saint-Denis 1er Cru Les Chaffots,,2023,12,158.43,1901.19
+Domaine Gérard Peirazeau Et Fils,Reds,6615122,Morey-Saint-Denis 1er Cru Les Genavriéres,,2022,12,154.96,1859.52
+Domaine Gérard Peirazeau Et Fils,Reds,6615123,Morey-Saint-Denis 1er Cru Les Genavriéres,,2023,12,158.43,1901.19
+Domaine Gérard Peirazeau Et Fils,Reds,6623122,Coteaux Bourguignons Pinot Noir,,2022,12,41.63,499.52
+Domaine Gérard Peirazeau Et Fils,Reds,6623123,Coteaux Bourguignons Pinot Noir,,2023,12,39.68,476.19
+Domaine Hubert Bouzereau-Gruère,Blancs,1308122,Bourgogne Blanc,,2022,12,51.63,619.52
+Domaine Hubert Bouzereau-Gruère,Blancs,1304124,Puligny-Montrachet,,2024,12,138.29,1659.52
+Domaine Hubert Bouzereau-Gruère,Blancs,1306122,Meursault 1er Cru Charmes,,2022,12,154.96,1859.52
+Domaine Hubert Bouzereau-Gruère,Blancs,1303123,Meursault 1er Cru Genevrieres,,2023,12,199.4,2392.86
+Domaine Hubert Bouzereau-Gruère,Blancs,1313123,Meursault Limozin,,2023,12,135.52,1626.19
+Domaine Hubert Bouzereau-Gruère,Blancs,1307122,Chassagne-Montrachet 1er Cru Les Chaumees,,2022,12,143.85,1726.19
+Domaine Hubert Bouzereau-Gruère,Blancs,1312124,Chassagne-Montrachet Blanc,,2024,12,129.96,1559.52
+Domaine Hubert Bouzereau-Gruère,Blancs,1301123,Saint-Aubin 1er Cru Le Charmois,,2023,12,132.74,1592.86
+Domaine Hubert Bouzereau-Gruère,Reds,1314123,Bourgogne Rouge,,2023,12,51.63,619.52
+Domaine Hubert Bouzereau-Gruère,Reds,1316120,Corton Bressandes Grand Cru,,2020,12,158.29,1899.52
+Domaine Hubert Bouzereau-Gruère,Reds,1316121,Corton Bressandes Grand Cru,,2021,12,159.96,1919.52
+Domaine Hubert Bouzereau-Gruère,Reds,1316122,Corton Bressandes Grand Cru,,2022,12,171.63,2059.52
+Domaine Hubert Bouzereau-Gruère,Reds,1315121,Santenay,,2021,12,71.63,859.52
+Domaine Hubert Bouzereau-Gruère,Reds,1315122,Santenay,,2022,12,74.96,899.52
+Domaine Launay-Horiot,Reds,2025121,Chambertin Grand Cru,,2021,12,643.85,7726.19
+Domaine Launay-Horiot,Reds,2025123,Chambertin Grand Cru,,2023,12,1338.29,16059.52
+Domaine Launay-Horiot,Reds,2024121,Latricières-Chambertin Grand Cru,,2021,12,463.29,5559.52
+Domaine Launay-Horiot,Reds,2024122,Latricières-Chambertin Grand Cru,,2022,12,727.18,8726.19
+Domaine Launay-Horiot,Reds,2022121,Pommard 1er Cru Clos Blanc,,2021,12,141.07,1692.86
+Domaine Launay-Horiot,Reds,2022122,Pommard 1er Cru Clos Blanc,,2022,12,167.18,2006.19
+Domaine Launay-Horiot,Reds,2021121,Pommard 1er Cru Les Chaponnières,,2021,12,135.52,1626.19
+Domaine Launay-Horiot,Reds,2021122,Pommard 1er Cru Les Chaponnières,,2022,12,167.18,2006.19
+Domaine Launay-Horiot,Reds,2023121,Pommard 1er Cru Les Rugiens Bas,,2021,12,238.29,2859.52
+Domaine Launay-Horiot,Reds,2023123,Pommard 1er Cru Les Rugiens Bas,,2023,12,354.96,4259.52
+Domaine Launay-Horiot,Reds,2020121,Pommard Les Perrières,,2021,12,96.63,1159.52
+Domaine Launay-Horiot,Reds,2020122,Pommard Les Perrières,,2022,12,104.96,1259.52
+Domaine Launay-Horiot,Reds,2020123,Pommard Les Perrières,,2023,12,129.96,1559.52
+Domaine Marsoif,Blancs,8600124,Tonnerre Bourgogne Blanc,,2024,12,29.96,359.52
+Domaine Marsoif,Blancs,8601123,Bourgogne Tonnerre Cuvée De Marguerite Vieilles Vignes,Organic,2023,12,31.63,379.52
+Domaine Marsoif,Blancs,8601124,"Tonnerre Bourgogne Blanc, 'Cuvee Marguerite' Vieilles Vignes",,2024,12,33.29,399.52
+Domaine Marsoif,Blancs,8602124,Petit Chablis Sur La Goulerotte,Organic,2024,12,34.96,419.52
+Domaine Marsoif,Brut,8607020,Crémant de Bourgogne Brut Rosé,,2020,12,31.63,379.52
+Domaine Marsoif,Brut,8606018,Crémant De Bourgogne Brut Blanc de Noirs,,2018,12,33.57,402.86
+Domaine Marsoif,Reds,8603125,"Bourgogne Epineuil Rouge, 'Croix des Templiers'",,2025,12,33.29,399.52
+Domaine Marsoif,Reds,8604121,Bourgogne Fut De Chene,,2021,12,34.13,409.52
+Domaine Marsoif,Reds,8604122,Bourgogne Epineuil Fût De Chêne,Organic,2022,12,33.29,399.52
+Domaine Marsoif,Reds,8604123,Bourgogne Epineuil Rouge fut de chene,,2023,12,34.96,419.52
+Domaine Marsoif,Reds,8605123,Bourgogne Pinot Noir Maison Rouge Tonnerre,Organic,2023,12,29.96,359.52
+Domaine Marsoif,Reds,8605124,Tonnerre Bourgogne Maison Rouge,,2024,12,31.63,379.52
+Domaine Thierry Hamelin,Blancs,1601124,Chablis,,2024,12,41.63,499.52
+Domaine Thierry Hamelin,Blancs,1602123,Petit Chablis,,2023,12,36.63,439.52
+Domaine Thierry Hamelin,Blancs,1605124,"Chablis 1er Cru, 'Vau Ligneau'",,2024,12,48.15,577.86
+Roy-Prevostat & Fils,Blancs,1701122,Chablis Vieilles Vignes,,2022,12,60.52,726.19
+Champagne François Secondé,Brut,31081NVA,Champagne Brut 1er Cru Blanc de Blancs Sermiers,,NV,12,83.43,1001.19
+Champagne François Secondé,Brut,3107117,Champagne Brut Blanc de Blancs Sillery Grand Cru,,2017,12,113.29,1359.52
+Champagne François Secondé,Brut,31021NVA,Champagne Brut Grand Cru À Sillery Rosé,,NV,12,93.85,1126.19
+Champagne François Secondé,Brut,31012NVB,Champagne Grand Cru Brut,,NV,12,84.96,1019.52
+Champagne Marcel Vézien,Brut,75030NV,Champagne Brut 'L'Illustre,,NV,12,60.52,726.19`;
 
-            try {
-                const response = await fetch(sourceUrl);
-                if (!response.ok) throw new Error('Could not load the pricing list.');
+        function parseCSV(text) {
+            const rows = [];
+            let current = '';
+            let row = [];
+            let inQuotes = false;
 
-                const html = await response.text();
-                const source = new DOMParser().parseFromString(html, 'text/html');
-                const sourceStyles = source.querySelector('head style');
-                const sourceContainer = source.querySelector('.container');
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const next = text[i + 1];
 
-                if (!sourceStyles || !sourceContainer) {
-                    throw new Error('The pricing list content was not found.');
+                if (char === '"') {
+                    if (inQuotes && next === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    row.push(current);
+                    current = '';
+                } else if ((char === '\n' || char === '\r') && !inQuotes) {
+                    if (char === '\r' && next === '\n') i++;
+                    row.push(current);
+                    if (row.some(cell => cell !== '')) {
+                        rows.push(row);
+                    }
+                    row = [];
+                    current = '';
+                } else {
+                    current += char;
                 }
+            }
 
-                // Reuse the previously published searchable catalog and its styling.
-                const style = document.createElement('style');
-                style.textContent = sourceStyles.textContent;
-                document.head.appendChild(style);
-                document.body.innerHTML = sourceContainer.outerHTML;
+            if (current.length || row.length) {
+                row.push(current);
+                if (row.some(cell => cell !== '')) {
+                    rows.push(row);
+                }
+            }
 
-                // Keep the PDF link available alongside the searchable price list.
-                const header = document.querySelector('.container header');
-                const download = document.createElement('a');
-                download.className = 'pdf-download';
-                download.href = 'wine-price-list.pdf';
-                download.download = '';
-                download.textContent = 'Download Wine Price List (PDF)';
-                download.setAttribute('aria-label', 'Download the wine price list as a PDF');
-                header.appendChild(download);
+            if (!rows.length) return [];
 
-                // Re-enable search on the restored catalog.
-                const searchInput = document.getElementById('searchInput');
-                searchInput.addEventListener('input', filterMenu);
+            const [header, ...dataRows] = rows;
+            const cleanedHeader = header.map(h => h.trim());
+            return dataRows.map(values => {
+                const obj = {};
+                cleanedHeader.forEach((key, index) => {
+                    obj[key] = (values[index] || '').trim();
+                });
+                return obj;
+            });
+        }
 
-                function filterMenu() {
-                    const query = searchInput.value.toLowerCase();
-                    const sections = document.querySelectorAll('.producer-section');
-                    let visibleSections = 0;
+        function buildCatalog() {
+            const container = document.getElementById('menuContainer');
+            const rows = parseCSV(csvText);
+            const grouped = {};
 
-                    sections.forEach(section => {
-                        const producerName = section.querySelector('.producer-title').textContent.toLowerCase();
-                        let visibleRows = 0;
+            rows.forEach(row => {
+                const producer = row.Producer || 'Unknown Producer';
+                const type = row.Type || 'Other';
+                if (!grouped[producer]) grouped[producer] = {};
+                if (!grouped[producer][type]) grouped[producer][type] = [];
+                grouped[producer][type].push(row);
+            });
 
-                        section.querySelectorAll('tbody tr').forEach(row => {
-                            const matches = row.textContent.toLowerCase().includes(query) || producerName.includes(query);
-                            row.style.display = matches ? '' : 'none';
-                            if (matches) visibleRows++;
+            const producers = Object.keys(grouped);
+            producers.forEach(producer => {
+                const producerSection = document.createElement('div');
+                producerSection.className = 'producer-section';
+
+                const title = document.createElement('h2');
+                title.className = 'producer-title';
+                title.textContent = producer;
+                producerSection.appendChild(title);
+
+                const types = Object.keys(grouped[producer]);
+                types.forEach(type => {
+                    const header = document.createElement('div');
+                    header.className = 'category-header';
+                    header.textContent = type.toUpperCase();
+                    producerSection.appendChild(header);
+
+                    const table = document.createElement('table');
+                    const thead = document.createElement('thead');
+                    const tr = document.createElement('tr');
+                    ['SKU', 'Wine', 'Vintage', 'Bottle Price', 'Case Price'].forEach(label => {
+                        const th = document.createElement('th');
+                        th.textContent = label;
+                        tr.appendChild(th);
+                    });
+                    thead.appendChild(tr);
+                    table.appendChild(thead);
+
+                    const tbody = document.createElement('tbody');
+                    grouped[producer][type].forEach(item => {
+                        const row = document.createElement('tr');
+                        const fields = [
+                            item.SKU,
+                            item.Wine,
+                            item.Vintage,
+                            '$' + Number(item['Bottle Price']).toFixed(2),
+                            '$' + Number(item['Case Price']).toFixed(2),
+                        ];
+
+                        fields.forEach((value, index) => {
+                            const cell = document.createElement(index === 2 ? 'td' : index === 3 || index === 4 ? 'td' : 'td');
+                            cell.textContent = value;
+                            if (index === 3 || index === 4) cell.className = 'price';
+                            row.appendChild(cell);
                         });
 
-                        section.style.display = visibleRows ? '' : 'none';
-                        if (visibleRows) visibleSections++;
+                        tbody.appendChild(row);
                     });
 
-                    const noResults = document.getElementById('noResults');
-                    if (noResults) noResults.style.display = visibleSections ? 'none' : 'block';
-                }
-            } catch (error) {
-                status.innerHTML = '<strong>The searchable wine list could not be loaded.</strong><br>Please refresh the page or contact The Rare Grape.';
+                    table.appendChild(tbody);
+                    producerSection.appendChild(table);
+                });
+
+                container.appendChild(producerSection);
+            });
+        }
+
+        function filterMenu() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const sections = document.querySelectorAll('.producer-section');
+            let visibleSections = 0;
+
+            sections.forEach(section => {
+                const producerName = section.querySelector('.producer-title').textContent.toLowerCase();
+                let visibleRowsInSection = 0;
+
+                section.querySelectorAll('tbody tr').forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    const matches = rowText.includes(query) || producerName.includes(query);
+                    row.style.display = matches ? '' : 'none';
+                    if (matches) visibleRowsInSection++;
+                });
+
+                section.style.display = visibleRowsInSection > 0 ? '' : 'none';
+                if (visibleRowsInSection > 0) visibleSections++;
+            });
+
+            const noResults = document.getElementById('noResults');
+            if (noResults) {
+                noResults.style.display = visibleSections === 0 ? 'block' : 'none';
             }
-        })();
+        }
+
+        buildCatalog();
+        document.getElementById('searchInput').addEventListener('input', filterMenu);
     </script>
 </body>
 </html>
